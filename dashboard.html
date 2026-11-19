@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="30">
+    <title>Antigravity Alpha Trader - AI Command Center (INR ₹)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b0f17;
+            --bg-card: #131a26;
+            --border-card: #1f293d;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-orange: #f59e0b;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            padding: 24px;
+            font-size: 14px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-card);
+            padding-bottom: 20px;
+            margin-bottom: 24px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .brand h1 {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .status-pill {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .status-pill::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 18px;
+        }
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .text-green { color: var(--accent-green); }
+        .text-red { color: var(--accent-red); }
+        .text-orange { color: var(--accent-orange); }
+        .text-muted { color: var(--text-muted); }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 1024px) {
+            .layout-grid { grid-template-columns: 1fr; }
+        }
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .panel h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-card);
+        }
+        th {
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .badge-buy { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-sell { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.4); }
+        .badge-neutral { background: rgba(156, 163, 175, 0.2); color: var(--text-muted); border: 1px solid rgba(156, 163, 175, 0.4); }
+
+        .signals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .signal-card {
+            background: #0f1520;
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .signal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .signal-symbol {
+            font-weight: 700;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+        .confidence-box {
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+        .reasons-box {
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px;
+            border-radius: 6px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        .news-item {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .news-title {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .sentiment-gauge {
+            background: #0f1520;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .sentiment-score {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand">
+            <h1>⚡ ANTIGRAVITY ALPHA TRADER</h1>
+            <span style="color: var(--text-muted); font-size: 12px;">Indian & Global AI Quant Bot (INR ₹)</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <div class="status-pill">EQUAL ALLOCATION ENGINE (₹10,000 EACH)</div>
+            <span class="text-muted" style="font-size: 12px;">Auto-refresh: 30s | 11:37:07</span>
+        </div>
+    </header>
+
+    <!-- METRICS -->
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-label">Total Portfolio Capital</div>
+            <div class="metric-value">₹29,600.55</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Available Free Cash</div>
+            <div class="metric-value">₹48.49</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Total Net P&L</div>
+            <div class="metric-value text-red">
+                ₹-299.45
+            </div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Win Rate / Trades</div>
+            <div class="metric-value">0.0% <span style="font-size: 14px; color: var(--text-muted);">(0W / 2L)</span></div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Allocation Per Position</div>
+            <div class="metric-value text-green">₹10,000.00</div>
+        </div>
+    </div>
+
+    <!-- MAIN PANELS -->
+    <div class="layout-grid">
+        <div>
+            <!-- OPEN POSITIONS -->
+            <div class="panel">
+                <h2>📈 Active Open Positions (3 / 3)</h2>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Type</th>
+                                <th>Entry</th>
+                                <th>Current</th>
+                                <th>Stop Loss (SL)</th>
+                                <th>Target (TP2)</th>
+                                <th>Unrealized P&L</th>
+                                <th>Allocated</th>
+                                <th>Entered At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr>
+                <td><strong>INFY.NS</strong></td>
+                <td><span class="badge badge-sell">SELL</span></td>
+                <td>₹1,082.46</td>
+                <td>₹1,084.40</td>
+                <td><span class="text-orange">₹1,121.10</span></td>
+                <td><span class="text-green">₹987.75</span></td>
+                <td class="text-red"><strong>₹-17.94 (-0.18%)</strong></td>
+                <td>₹9,999.97</td>
+                <td>2026-11-19 09:23:28</td>
+            </tr>
+            
+            <tr>
+                <td><strong>ITC.NS</strong></td>
+                <td><span class="badge badge-buy">BUY</span></td>
+                <td>₹299.65</td>
+                <td>₹298.35</td>
+                <td><span class="text-orange">₹288.95</span></td>
+                <td><span class="text-green">₹325.88</span></td>
+                <td class="text-red"><strong>₹-41.59 (-0.43%)</strong></td>
+                <td>₹9,588.79</td>
+                <td>2026-11-19 09:28:40</td>
+            </tr>
+            
+            <tr>
+                <td><strong>SOL-INR</strong></td>
+                <td><span class="badge badge-buy">BUY</span></td>
+                <td>₹6,963.78</td>
+                <td>₹6,979.69</td>
+                <td><span class="text-orange">₹6,857.88</span></td>
+                <td><span class="text-green">₹7,165.14</span></td>
+                <td class="text-green"><strong>+₹22.84 (+0.23%)</strong></td>
+                <td>₹9,999.98</td>
+                <td>2026-11-19 10:59:59</td>
+            </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- LIVE SIGNALS -->
+            <div class="panel">
+                <h2>🎯 High-Probability Candlestick Signals (9)</h2>
+                <div class="signals-grid">
+                    
+            <div class="signal-card">
+                <div class="signal-header">
+                    <div>
+                        <span class="signal-symbol">ITC.NS</span>
+                        <span class="badge badge-buy">BUY</span>
+                    </div>
+                    <div class="confidence-box" style="color: #f59e0b">
+                        63% Confidence
+                    </div>
+                </div>
+                <div class="signal-body">
+                    <div class="metric-row">
+                        <span>Current Price:</span> <strong>₹298.35</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Pattern:</span> <em>Bullish Engulfing</em>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stop Loss (SL):</span> <strong class="text-orange">₹293.70</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 1 (TP1):</span> <strong class="text-green">₹305.32</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 2 (TP2):</span> <strong class="text-green">₹309.98</strong> (R:R 2.5:1)
+                    </div>
+                    <div class="reasons-box">
+                        <small>• Candlestick: Bullish Engulfing detected (+25pts)<br>• Trend: Price above EMA 21 & EMA 50 (Golden Trend) (+20pts)<br>• RSI: Bullish momentum expansion (63.7) (+10pts)</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="signal-card">
+                <div class="signal-header">
+                    <div>
+                        <span class="signal-symbol">SOL-INR</span>
+                        <span class="badge badge-neutral">HOLD / NEUTRAL</span>
+                    </div>
+                    <div class="confidence-box" style="color: #6b7280">
+                        38% Confidence
+                    </div>
+                </div>
+                <div class="signal-body">
+                    <div class="metric-row">
+                        <span>Current Price:</span> <strong>₹6,979.69</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Pattern:</span> <em>Standard Price Action Candle</em>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stop Loss (SL):</span> <strong class="text-orange">₹6,884.59</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 1 (TP1):</span> <strong class="text-green">₹7,106.47</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 2 (TP2):</span> <strong class="text-green">₹7,169.87</strong> (R:R 2.0:1)
+                    </div>
+                    <div class="reasons-box">
+                        <small>• Trend: Price above EMA 21 & EMA 50 (Golden Trend) (+20pts)<br>• RSI: Bullish momentum expansion (55.4) (+10pts)<br>• MACD: Positive Histogram / Above Signal (+8pts)</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="signal-card">
+                <div class="signal-header">
+                    <div>
+                        <span class="signal-symbol">INFY.NS</span>
+                        <span class="badge badge-neutral">HOLD / NEUTRAL</span>
+                    </div>
+                    <div class="confidence-box" style="color: #6b7280">
+                        38% Confidence
+                    </div>
+                </div>
+                <div class="signal-body">
+                    <div class="metric-row">
+                        <span>Current Price:</span> <strong>₹1,084.60</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Pattern:</span> <em>Standard Price Action Candle</em>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stop Loss (SL):</span> <strong class="text-orange">₹1,071.52</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 1 (TP1):</span> <strong class="text-green">₹1,102.04</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 2 (TP2):</span> <strong class="text-green">₹1,110.76</strong> (R:R 2.0:1)
+                    </div>
+                    <div class="reasons-box">
+                        <small>• Trend: Price below EMA 21 & EMA 50 (Death Trend) (+20pts)<br>• RSI: Rebounding from Oversold zone (18.6) (+15pts)<br>• MACD: Negative Histogram / Below Signal (+8pts)</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="signal-card">
+                <div class="signal-header">
+                    <div>
+                        <span class="signal-symbol">RELIANCE.NS</span>
+                        <span class="badge badge-neutral">HOLD / NEUTRAL</span>
+                    </div>
+                    <div class="confidence-box" style="color: #6b7280">
+                        30% Confidence
+                    </div>
+                </div>
+                <div class="signal-body">
+                    <div class="metric-row">
+                        <span>Current Price:</span> <strong>₹1,362.80</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Pattern:</span> <em>Standard Price Action Candle</em>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stop Loss (SL):</span> <strong class="text-orange">₹1,348.35</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 1 (TP1):</span> <strong class="text-green">₹1,382.07</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 2 (TP2):</span> <strong class="text-green">₹1,391.71</strong> (R:R 2.0:1)
+                    </div>
+                    <div class="reasons-box">
+                        <small>• Trend: Price above EMA 21 & EMA 50 (Golden Trend) (+20pts)<br>• MACD: Negative Histogram / Below Signal (+8pts)<br>• Macro Sentiment: Internet market news is Bullish (+10pts)</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="signal-card">
+                <div class="signal-header">
+                    <div>
+                        <span class="signal-symbol">TCS.NS</span>
+                        <span class="badge badge-neutral">HOLD / NEUTRAL</span>
+                    </div>
+                    <div class="confidence-box" style="color: #6b7280">
+                        28% Confidence
+                    </div>
+                </div>
+                <div class="signal-body">
+                    <div class="metric-row">
+                        <span>Current Price:</span> <strong>₹2,357.60</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Pattern:</span> <em>Standard Price Action Candle</em>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stop Loss (SL):</span> <strong class="text-orange">₹2,332.85</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 1 (TP1):</span> <strong class="text-green">₹2,390.60</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 2 (TP2):</span> <strong class="text-green">₹2,407.10</strong> (R:R 2.0:1)
+                    </div>
+                    <div class="reasons-box">
+                        <small>• Trend: Price below EMA 21 & EMA 50 (Death Trend) (+20pts)<br>• RSI: Rebounding from Oversold zone (20.6) (+15pts)<br>• MACD: Negative Histogram / Below Signal (+8pts)</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="signal-card">
+                <div class="signal-header">
+                    <div>
+                        <span class="signal-symbol">SBIN.NS</span>
+                        <span class="badge badge-neutral">HOLD / NEUTRAL</span>
+                    </div>
+                    <div class="confidence-box" style="color: #6b7280">
+                        28% Confidence
+                    </div>
+                </div>
+                <div class="signal-body">
+                    <div class="metric-row">
+                        <span>Current Price:</span> <strong>₹1,144.45</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Pattern:</span> <em>Doji (Market Indecision)</em>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stop Loss (SL):</span> <strong class="text-orange">₹1,132.88</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 1 (TP1):</span> <strong class="text-green">₹1,159.87</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 2 (TP2):</span> <strong class="text-green">₹1,167.58</strong> (R:R 2.0:1)
+                    </div>
+                    <div class="reasons-box">
+                        <small>• Trend: Price above EMA 21 & EMA 50 (Golden Trend) (+20pts)<br>• RSI: Turning down from Overbought zone (78.5) (+15pts)<br>• MACD: Positive Histogram / Above Signal (+8pts)</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="signal-card">
+                <div class="signal-header">
+                    <div>
+                        <span class="signal-symbol">BTC-INR</span>
+                        <span class="badge badge-neutral">HOLD / NEUTRAL</span>
+                    </div>
+                    <div class="confidence-box" style="color: #6b7280">
+                        18% Confidence
+                    </div>
+                </div>
+                <div class="signal-body">
+                    <div class="metric-row">
+                        <span>Current Price:</span> <strong>₹5,919,199.00</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Pattern:</span> <em>Standard Price Action Candle</em>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stop Loss (SL):</span> <strong class="text-orange">₹5,848,870.27</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 1 (TP1):</span> <strong class="text-green">₹6,012,970.64</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 2 (TP2):</span> <strong class="text-green">₹6,059,856.46</strong> (R:R 2.0:1)
+                    </div>
+                    <div class="reasons-box">
+                        <small>• Trend: Consolidation / Rangebound between EMAs<br>• RSI: Bullish momentum expansion (58.5) (+10pts)<br>• MACD: Positive Histogram / Above Signal (+8pts)</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="signal-card">
+                <div class="signal-header">
+                    <div>
+                        <span class="signal-symbol">ETH-INR</span>
+                        <span class="badge badge-neutral">HOLD / NEUTRAL</span>
+                    </div>
+                    <div class="confidence-box" style="color: #6b7280">
+                        18% Confidence
+                    </div>
+                </div>
+                <div class="signal-body">
+                    <div class="metric-row">
+                        <span>Current Price:</span> <strong>₹168,090.39</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Pattern:</span> <em>Doji (Market Indecision)</em>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stop Loss (SL):</span> <strong class="text-orange">₹165,800.72</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 1 (TP1):</span> <strong class="text-green">₹171,143.29</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 2 (TP2):</span> <strong class="text-green">₹172,669.74</strong> (R:R 2.0:1)
+                    </div>
+                    <div class="reasons-box">
+                        <small>• Trend: Consolidation / Rangebound between EMAs<br>• RSI: Bullish momentum expansion (58.4) (+10pts)<br>• MACD: Positive Histogram / Above Signal (+8pts)</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="signal-card">
+                <div class="signal-header">
+                    <div>
+                        <span class="signal-symbol">HDFCBANK.NS</span>
+                        <span class="badge badge-neutral">HOLD / NEUTRAL</span>
+                    </div>
+                    <div class="confidence-box" style="color: #6b7280">
+                        18% Confidence
+                    </div>
+                </div>
+                <div class="signal-body">
+                    <div class="metric-row">
+                        <span>Current Price:</span> <strong>₹808.80</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Pattern:</span> <em>Standard Price Action Candle</em>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stop Loss (SL):</span> <strong class="text-orange">₹802.25</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 1 (TP1):</span> <strong class="text-green">₹817.53</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Take Profit 2 (TP2):</span> <strong class="text-green">₹821.89</strong> (R:R 2.0:1)
+                    </div>
+                    <div class="reasons-box">
+                        <small>• Trend: Consolidation / Rangebound between EMAs<br>• MACD: Negative Histogram / Below Signal (+8pts)<br>• Macro Sentiment: Internet market news is Bearish (+10pts)</small>
+                    </div>
+                </div>
+            </div>
+            
+                </div>
+            </div>
+
+            <!-- TRADE HISTORY -->
+            <div class="panel">
+                <h2>📜 Closed Trades Ledger</h2>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Exit Time</th>
+                                <th>Symbol</th>
+                                <th>Type</th>
+                                <th>Entry</th>
+                                <th>Exit</th>
+                                <th>Realized P&L</th>
+                                <th>Exit Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr>
+                <td>2026-11-19 09:32:13</td>
+                <td><strong>RELIANCE.NS</strong></td>
+                <td><span class="badge badge-buy">BUY</span></td>
+                <td>₹1,366.68</td>
+                <td>₹1,353.82</td>
+                <td class="text-red"><strong>₹-114.10 (-1.14%)</strong></td>
+                <td><small>STOP LOSS HIT ($1354.5 <= $1354.5829)</small></td>
+            </tr>
+            
+            <tr>
+                <td>2026-11-19 05:12:31</td>
+                <td><strong>ETH-INR</strong></td>
+                <td><span class="badge badge-sell">SELL</span></td>
+                <td>₹163,829.54</td>
+                <td>₹165,937.61</td>
+                <td class="text-red"><strong>₹-148.67 (-1.49%)</strong></td>
+                <td><small>STOP LOSS HIT ($165854.6875 >= $165821.7862)</small></td>
+            </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIDEBAR: MARKET INTELLIGENCE -->
+        <div>
+            <!-- GLOBAL MARKET SESSIONS -->
+            <div class="panel">
+                <h2>🕒 Global Markets Status (Live Clock)</h2>
+                <div style="background: #0f1520; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span>🪙 <strong>Crypto (BTC / ETH / SOL)</strong></span>
+                        <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4);">24/7 LIVE OPEN</span>
+                    </div>
+                    <small class="text-muted">Trades 24 hours a day, 365 days a year without closing (Priced in INR ₹).</small>
+                </div>
+
+                <div style="background: #0f1520; padding: 12px; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span>🇮🇳 <strong>Indian Market (NSE / BSE)</strong></span>
+                        <span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4);">CLOSED</span>
+                    </div>
+                    <small class="text-muted">Regular session: 09:15 AM - 03:30 PM IST. Trading halted until morning bell.</small>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>🌐 Daily Internet Market Intelligence</h2>
+                <div class="sentiment-gauge">
+                    <div class="metric-label">Macro Regime</div>
+                    <div style="font-weight: 700; font-size: 16px; color: var(--accent-red);">
+                        STRONG BEARISH
+                    </div>
+                    <div class="sentiment-score text-red">
+                        -48.6
+                    </div>
+                    <small class="text-muted">Scale: -100 (Extreme Panic) to +100 (Extreme Euphoria)</small>
+                </div>
+
+                <h3 style="font-size: 13px; color: var(--text-muted); margin: 16px 0 8px 0; text-transform: uppercase;">
+                    Top Macro Driving News
+                </h3>
+                <div class="news-list">
+                    
+            <div class="news-item">
+                <span class="badge badge-sell">BEARISH (-0.83)</span>
+                <span class="news-title">Sensex, Nifty open flat amid Fed rate hike concerns; investors remain cautious - ChiniMandi</span>
+            </div>
+            
+            <div class="news-item">
+                <span class="badge badge-neutral">NEUTRAL (+0.00)</span>
+                <span class="news-title">Stock Market Today: Sensex, Nifty Mixed at Pre-Open - HDFC Sky</span>
+            </div>
+            
+            <div class="news-item">
+                <span class="badge badge-buy">BULLISH (+0.33)</span>
+                <span class="news-title">Sensex Today Trades Marginally Higher | Nifty Above 25,200 | Maruti Suzuki & Bharat Elec Top Gainers - Equitymaster</span>
+            </div>
+            
+            <div class="news-item">
+                <span class="badge badge-neutral">NEUTRAL (+0.00)</span>
+                <span class="news-title">Stock market opens mixed: Sensex gains, Nifty falls; Infosys leads losers - India Today</span>
+            </div>
+            
+            <div class="news-item">
+                <span class="badge badge-sell">BEARISH (-1.00)</span>
+                <span class="news-title">Stock markets fall in early trade dragged by IT firms, US Fed rate hike jitters - The New Indian Express</span>
+            </div>
+            
+            <div class="news-item">
+                <span class="badge badge-sell">BEARISH (-0.50)</span>
+                <span class="news-title">Markets Are Rallying, But Here's Why You Should Prepare For A Fall - NDTV</span>
+            </div>
+            
+            <div class="news-item">
+                <span class="badge badge-sell">BEARISH (-0.83)</span>
+                <span class="news-title">Sensex, Nifty Open Lower as Fed Signals More Rate Hikes - HDFC Sky</span>
+            </div>
+            
+            <div class="news-item">
+                <span class="badge badge-sell">BEARISH (-0.50)</span>
+                <span class="news-title">Sensex Falls 500 Pts; Nifty Slips Below 25,250 on Profit Booking - HDFC Sky</span>
+            </div>
+            
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>🛡️ Equal Allocation Risk Rules</h2>
+                <div class="metric-row" style="margin-bottom: 10px;">
+                    <span>Total Portfolio:</span> <strong>₹30,000.00</strong>
+                </div>
+                <div class="metric-row" style="margin-bottom: 10px;">
+                    <span>Equal Share Per Trade:</span> <strong class="text-green">₹10,000.00 each</strong>
+                </div>
+                <div class="metric-row" style="margin-bottom: 10px;">
+                    <span>Max Open Positions:</span> <strong>3 (3 x ₹10k = ₹30k)</strong>
+                </div>
+                <div class="metric-row" style="margin-bottom: 10px;">
+                    <span>Risk-to-Reward Target:</span> <strong>Minimum 1:2.0</strong>
+                </div>
+                <div class="metric-row" style="margin-bottom: 10px;">
+                    <span>Daily Circuit Breaker:</span> <strong>4.0% (₹1,200 max loss)</strong>
+                </div>
+                <div class="metric-row">
+                    <span>Brokerage Modeling:</span> <strong>₹20 / order flat</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

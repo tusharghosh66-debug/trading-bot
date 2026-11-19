@@ -1,0 +1,3 @@
+timestamp,symbol,action,status,quantity,entry_price,exit_price,pnl,pnl_pct,exit_reason,pattern
+2026-11-19 05:12:31,ETH-INR,SELL,CLOSED,0.061039,163829.5443,165937.6148,-148.67,-1.49,STOP LOSS HIT ($165854.6875 >= $165821.7862),Bearish Engulfing
+2026-11-19 09:32:13,RELIANCE.NS,BUY,CLOSED,7.317,1366.683,1353.8228,-114.1,-1.14,STOP LOSS HIT ($1354.5 <= $1354.5829),Bullish Engulfing
