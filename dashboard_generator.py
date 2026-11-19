@@ -66,6 +66,15 @@ def generate_dashboard():
 
     sym_curr = CURRENCY_SYMBOL
 
+    # Dynamic Indian Market Session Check
+    nse_session = get_market_session_info("indian_equity")
+    if nse_session.get("is_open", False):
+        nse_badge = '<span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4);">LIVE OPEN</span>'
+        nse_desc = 'NSE/BSE Regular Session (09:15 AM - 03:30 PM IST). Actively scanning Indian equities.'
+    else:
+        nse_badge = '<span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4);">CLOSED</span>'
+        nse_desc = 'Market closed (09:15 AM - 03:30 PM IST). Opens next trading session at 09:15 AM IST.'
+
     # Format positions HTML
     positions_html = ""
     if positions:
@@ -510,9 +519,9 @@ def generate_dashboard():
                 <div style="background: #0f1520; padding: 12px; border-radius: 8px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                         <span>🇮🇳 <strong>Indian Market (NSE / BSE)</strong></span>
-                        <span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4);">CLOSED</span>
+                        {nse_badge}
                     </div>
-                    <small class="text-muted">Regular session: 09:15 AM - 03:30 PM IST. Trading halted until morning bell.</small>
+                    <small class="text-muted">{nse_desc}</small>
                 </div>
             </div>
 
