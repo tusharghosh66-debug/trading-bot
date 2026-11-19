@@ -2247,3 +2247,98 @@
 2026-11-19 11:36:48,321 [INFO] AlphaTrader.Master: ==================================================
 2026-11-19 11:36:48,321 [INFO] AlphaTrader.Execution: [ITC.NS] Trade skipped by Risk Manager: MAX POSITIONS REACHED: Currently holding 3/3 positions
 2026-11-19 11:36:48,321 [INFO] AlphaTrader.Master: Execution cycle complete. Newly opened positions: 0
+2026-11-19 11:41:52,628 [INFO] AlphaTrader.Master: Triggering scheduled market scan & intelligence refresh...
+2026-11-19 11:41:52,628 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:41:52,628 [INFO] AlphaTrader.Master: STEP 1: COLLECTING INTERNET MARKET INTELLIGENCE...
+2026-11-19 11:41:52,628 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:41:52,628 [INFO] AlphaTrader.Intelligence: Scanning the internet for live market news and sentiment...
+2026-11-19 11:41:57,581 [INFO] AlphaTrader.Master: Market Sentiment Regime: STRONG BEARISH (Score: -43.6/100)
+2026-11-19 11:41:57,581 [INFO] AlphaTrader.Master: Crypto / Market Fear & Greed: 10 (Extreme Fear)
+2026-11-19 11:41:57,581 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:41:57,581 [INFO] AlphaTrader.Master: STEP 2: SCANNING CANDLESTICKS & PRICE ACTION...
+2026-11-19 11:41:57,581 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:41:57,924 [INFO] AlphaTrader.Master: [BTC-INR] Price: $5915678.5 | Signal: HOLD / NEUTRAL (18%) | Pattern: Doji (Market Indecision) | SL: $5845349.7679 | TP2: $6056335.9643
+2026-11-19 11:41:58,206 [INFO] AlphaTrader.Master: [ETH-INR] Price: $167940.7969 | Signal: HOLD / NEUTRAL (34%) | Pattern: Evening Star Reversal | SL: $165645.0938 | TP2: $172532.2031
+2026-11-19 11:41:58,482 [INFO] AlphaTrader.Master: [SOL-INR] Price: $6971.1089 | Signal: HOLD / NEUTRAL (38%) | Pattern: Standard Price Action Candle | SL: $6876.0176 | TP2: $7161.2914
+2026-11-19 11:41:58,689 [INFO] AlphaTrader.Master: [RELIANCE.NS] Price: $1360.8 | Signal: HOLD / NEUTRAL (30%) | Pattern: Standard Price Action Candle | SL: $1346.3465 | TP2: $1389.7072
+2026-11-19 11:41:59,043 [INFO] AlphaTrader.Master: [TCS.NS] Price: $2357.8 | Signal: HOLD / NEUTRAL (28%) | Pattern: Standard Price Action Candle | SL: $2333.05 | TP2: $2407.3
+2026-11-19 11:41:59,328 [INFO] AlphaTrader.Master: [INFY.NS] Price: $1084.3 | Signal: HOLD / NEUTRAL (38%) | Pattern: Standard Price Action Candle | SL: $1071.2179 | TP2: $1110.4644
+2026-11-19 11:41:59,545 [INFO] AlphaTrader.Master: [HDFCBANK.NS] Price: $809.45 | Signal: HOLD / NEUTRAL (18%) | Pattern: Doji (Market Indecision) | SL: $802.9036 | TP2: $822.5429
+2026-11-19 11:41:59,742 [INFO] AlphaTrader.Master: [SBIN.NS] Price: $1143.95 | Signal: HOLD / NEUTRAL (28%) | Pattern: Doji (Market Indecision) | SL: $1132.3838 | TP2: $1167.0822
+2026-11-19 11:41:59,946 [INFO] AlphaTrader.Master: [ITC.NS] Price: $298.25 | Signal: BUY (63%) | Pattern: Bullish Engulfing | SL: $293.7 | TP2: $309.625
+2026-11-19 11:41:59,969 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:41:59,970 [INFO] AlphaTrader.Master: STEP 3: EVALUATING TRADES FOR EXECUTION...
+2026-11-19 11:41:59,970 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:41:59,970 [INFO] AlphaTrader.Execution: [ITC.NS] Trade skipped by Risk Manager: MAX POSITIONS REACHED: Currently holding 3/3 positions
+2026-11-19 11:41:59,970 [INFO] AlphaTrader.Master: Execution cycle complete. Newly opened positions: 0
+2026-11-19 11:47:04,311 [INFO] AlphaTrader.Master: Triggering scheduled market scan & intelligence refresh...
+2026-11-19 11:47:04,312 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:47:04,312 [INFO] AlphaTrader.Master: STEP 1: COLLECTING INTERNET MARKET INTELLIGENCE...
+2026-11-19 11:47:04,312 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:47:04,312 [INFO] AlphaTrader.Intelligence: Scanning the internet for live market news and sentiment...
+2026-11-19 11:47:10,590 [INFO] AlphaTrader.Master: Market Sentiment Regime: STRONG BEARISH (Score: -37.9/100)
+2026-11-19 11:47:10,590 [INFO] AlphaTrader.Master: Crypto / Market Fear & Greed: 10 (Extreme Fear)
+2026-11-19 11:47:10,591 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:47:10,591 [INFO] AlphaTrader.Master: STEP 2: SCANNING CANDLESTICKS & PRICE ACTION...
+2026-11-19 11:47:10,591 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:47:10,863 [INFO] AlphaTrader.Master: [BTC-INR] Price: $5916451.5 | Signal: HOLD / NEUTRAL (18%) | Pattern: Doji (Market Indecision) | SL: $5846122.7679 | TP2: $6057108.9643
+2026-11-19 11:47:11,110 [INFO] AlphaTrader.Master: [ETH-INR] Price: $167992.2656 | Signal: HOLD / NEUTRAL (34%) | Pattern: Evening Star Reversal | SL: $165696.5625 | TP2: $172583.6719
+2026-11-19 11:47:11,411 [INFO] AlphaTrader.Master: [SOL-INR] Price: $6974.1948 | Signal: HOLD / NEUTRAL (38%) | Pattern: Standard Price Action Candle | SL: $6879.1036 | TP2: $7164.3774
+2026-11-19 11:47:11,614 [INFO] AlphaTrader.Master: [RELIANCE.NS] Price: $1361.6 | Signal: HOLD / NEUTRAL (30%) | Pattern: Standard Price Action Candle | SL: $1347.1464 | TP2: $1390.5071
+2026-11-19 11:47:11,815 [INFO] AlphaTrader.Master: [TCS.NS] Price: $2361.8 | Signal: HOLD / NEUTRAL (28%) | Pattern: Standard Price Action Candle | SL: $2336.8572 | TP2: $2411.6858
+2026-11-19 11:47:12,021 [INFO] AlphaTrader.Master: [INFY.NS] Price: $1085.1 | Signal: HOLD / NEUTRAL (38%) | Pattern: Standard Price Action Candle | SL: $1072.0178 | TP2: $1111.2643
+2026-11-19 11:47:12,214 [INFO] AlphaTrader.Master: [HDFCBANK.NS] Price: $810.9 | Signal: HOLD / NEUTRAL (35%) | Pattern: Standard Price Action Candle | SL: $804.209 | TP2: $824.2822
+2026-11-19 11:47:12,434 [INFO] AlphaTrader.Master: [SBIN.NS] Price: $1142.55 | Signal: HOLD / NEUTRAL (28%) | Pattern: Standard Price Action Candle | SL: $1130.9839 | TP2: $1165.6823
+2026-11-19 11:47:12,628 [INFO] AlphaTrader.Master: [ITC.NS] Price: $298.2 | Signal: BUY (63%) | Pattern: Bullish Engulfing | SL: $293.7 | TP2: $309.45
+2026-11-19 11:47:12,653 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:47:12,653 [INFO] AlphaTrader.Master: STEP 3: EVALUATING TRADES FOR EXECUTION...
+2026-11-19 11:47:12,653 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:47:12,653 [INFO] AlphaTrader.Execution: [ITC.NS] Trade skipped by Risk Manager: MAX POSITIONS REACHED: Currently holding 3/3 positions
+2026-11-19 11:47:12,653 [INFO] AlphaTrader.Master: Execution cycle complete. Newly opened positions: 0
+2026-11-19 11:52:17,056 [INFO] AlphaTrader.Master: Triggering scheduled market scan & intelligence refresh...
+2026-11-19 11:52:17,056 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:52:17,056 [INFO] AlphaTrader.Master: STEP 1: COLLECTING INTERNET MARKET INTELLIGENCE...
+2026-11-19 11:52:17,056 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:52:17,056 [INFO] AlphaTrader.Intelligence: Scanning the internet for live market news and sentiment...
+2026-11-19 11:52:23,763 [INFO] AlphaTrader.Master: Market Sentiment Regime: STRONG BEARISH (Score: -43.6/100)
+2026-11-19 11:52:23,763 [INFO] AlphaTrader.Master: Crypto / Market Fear & Greed: 10 (Extreme Fear)
+2026-11-19 11:52:23,763 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:52:23,763 [INFO] AlphaTrader.Master: STEP 2: SCANNING CANDLESTICKS & PRICE ACTION...
+2026-11-19 11:52:23,764 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:52:24,046 [INFO] AlphaTrader.Master: [BTC-INR] Price: $5922599.5 | Signal: HOLD / NEUTRAL (18%) | Pattern: Standard Price Action Candle | SL: $5852153.3929 | TP2: $6063491.7143
+2026-11-19 11:52:24,316 [INFO] AlphaTrader.Master: [ETH-INR] Price: $168161.9531 | Signal: HOLD / NEUTRAL (18%) | Pattern: Standard Price Action Candle | SL: $165866.25 | TP2: $172753.3594
+2026-11-19 11:52:24,611 [INFO] AlphaTrader.Master: [SOL-INR] Price: $6976.1636 | Signal: HOLD / NEUTRAL (38%) | Pattern: Standard Price Action Candle | SL: $6881.0723 | TP2: $7166.3461
+2026-11-19 11:52:24,970 [INFO] AlphaTrader.Master: [RELIANCE.NS] Price: $1361.8 | Signal: HOLD / NEUTRAL (30%) | Pattern: Standard Price Action Candle | SL: $1347.3465 | TP2: $1390.7072
+2026-11-19 11:52:25,172 [INFO] AlphaTrader.Master: [TCS.NS] Price: $2357.7 | Signal: HOLD / NEUTRAL (28%) | Pattern: Standard Price Action Candle | SL: $2332.7357 | TP2: $2407.6285
+2026-11-19 11:52:25,401 [INFO] AlphaTrader.Master: [INFY.NS] Price: $1083.2 | Signal: HOLD / NEUTRAL (38%) | Pattern: Standard Price Action Candle | SL: $1070.1178 | TP2: $1109.3643
+2026-11-19 11:52:25,738 [INFO] AlphaTrader.Master: [HDFCBANK.NS] Price: $810.4 | Signal: HOLD / NEUTRAL (18%) | Pattern: Standard Price Action Candle | SL: $803.6072 | TP2: $823.9857
+2026-11-19 11:52:26,108 [INFO] AlphaTrader.Master: [SBIN.NS] Price: $1143.4 | Signal: HOLD / NEUTRAL (28%) | Pattern: Standard Price Action Candle | SL: $1131.8339 | TP2: $1166.5322
+2026-11-19 11:52:26,299 [INFO] AlphaTrader.Master: [ITC.NS] Price: $298.05 | Signal: HOLD / NEUTRAL (38%) | Pattern: Doji (Market Indecision) | SL: $295.0821 | TP2: $303.9857
+2026-11-19 11:52:26,322 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:52:26,322 [INFO] AlphaTrader.Master: STEP 3: EVALUATING TRADES FOR EXECUTION...
+2026-11-19 11:52:26,322 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:52:26,322 [INFO] AlphaTrader.Master: Execution cycle complete. Newly opened positions: 0
+2026-11-19 11:57:31,121 [INFO] AlphaTrader.Master: Triggering scheduled market scan & intelligence refresh...
+2026-11-19 11:57:31,121 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:57:31,121 [INFO] AlphaTrader.Master: STEP 1: COLLECTING INTERNET MARKET INTELLIGENCE...
+2026-11-19 11:57:31,121 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:57:31,121 [INFO] AlphaTrader.Intelligence: Scanning the internet for live market news and sentiment...
+2026-11-19 11:57:36,290 [INFO] AlphaTrader.Master: Market Sentiment Regime: STRONG BEARISH (Score: -39.2/100)
+2026-11-19 11:57:36,290 [INFO] AlphaTrader.Master: Crypto / Market Fear & Greed: 10 (Extreme Fear)
+2026-11-19 11:57:36,290 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:57:36,290 [INFO] AlphaTrader.Master: STEP 2: SCANNING CANDLESTICKS & PRICE ACTION...
+2026-11-19 11:57:36,291 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:57:36,580 [INFO] AlphaTrader.Master: [BTC-INR] Price: $5918787.0 | Signal: HOLD / NEUTRAL (18%) | Pattern: Standard Price Action Candle | SL: $5848340.8929 | TP2: $6059679.2143
+2026-11-19 11:57:36,808 [INFO] AlphaTrader.Master: [ETH-INR] Price: $168064.9844 | Signal: HOLD / NEUTRAL (18%) | Pattern: Doji (Market Indecision) | SL: $165769.2812 | TP2: $172656.3906
+2026-11-19 11:57:37,108 [INFO] AlphaTrader.Master: [SOL-INR] Price: $6978.916 | Signal: HOLD / NEUTRAL (38%) | Pattern: Standard Price Action Candle | SL: $6883.8247 | TP2: $7169.0986
+2026-11-19 11:57:37,329 [INFO] AlphaTrader.Master: [RELIANCE.NS] Price: $1363.1 | Signal: HOLD / NEUTRAL (30%) | Pattern: Standard Price Action Candle | SL: $1348.5285 | TP2: $1392.2428
+2026-11-19 11:57:37,546 [INFO] AlphaTrader.Master: [TCS.NS] Price: $2358.8999 | Signal: HOLD / NEUTRAL (28%) | Pattern: Standard Price Action Candle | SL: $2333.9356 | TP2: $2408.8285
+2026-11-19 11:57:37,758 [INFO] AlphaTrader.Master: [INFY.NS] Price: $1084.1 | Signal: HOLD / NEUTRAL (38%) | Pattern: Standard Price Action Candle | SL: $1071.0178 | TP2: $1110.2643
+2026-11-19 11:57:38,137 [INFO] AlphaTrader.Master: [HDFCBANK.NS] Price: $811.4 | Signal: HOLD / NEUTRAL (35%) | Pattern: Standard Price Action Candle | SL: $804.6072 | TP2: $824.9857
+2026-11-19 11:57:38,335 [INFO] AlphaTrader.Master: [SBIN.NS] Price: $1143.5 | Signal: HOLD / NEUTRAL (28%) | Pattern: Standard Price Action Candle | SL: $1131.9339 | TP2: $1166.6322
+2026-11-19 11:57:38,959 [INFO] AlphaTrader.Master: [ITC.NS] Price: $298.3 | Signal: BUY (63%) | Pattern: Bullish Engulfing | SL: $293.7 | TP2: $309.8
+2026-11-19 11:57:38,984 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:57:38,984 [INFO] AlphaTrader.Master: STEP 3: EVALUATING TRADES FOR EXECUTION...
+2026-11-19 11:57:38,984 [INFO] AlphaTrader.Master: ==================================================
+2026-11-19 11:57:38,984 [INFO] AlphaTrader.Execution: [ITC.NS] Trade skipped by Risk Manager: MAX POSITIONS REACHED: Currently holding 3/3 positions
+2026-11-19 11:57:38,984 [INFO] AlphaTrader.Master: Execution cycle complete. Newly opened positions: 0
