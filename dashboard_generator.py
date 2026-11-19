@@ -5,7 +5,7 @@ Builds a modern, responsive single-page visual dashboard with live metrics in IN
 
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from config import (
     ALLOCATION_PER_POSITION,
     CURRENCY_SYMBOL,
@@ -65,6 +65,8 @@ def generate_dashboard():
     macro_news = intelligence.get("macro_news", [])
 
     sym_curr = CURRENCY_SYMBOL
+    ist = timezone(timedelta(hours=5, minutes=30))
+    now_ist_str = datetime.now(ist).strftime('%I:%M:%S %p IST')
 
     # Dynamic Indian Market Session Check
     nse_session = get_market_session_info("indian_equity")
@@ -413,7 +415,7 @@ def generate_dashboard():
         </div>
         <div style="display: flex; gap: 12px; align-items: center;">
             <div class="status-pill">EQUAL ALLOCATION ENGINE (₹10,000 EACH)</div>
-            <span class="text-muted" style="font-size: 12px;">Auto-refresh: 30s | {datetime.now().strftime('%H:%M:%S')}</span>
+            <span class="text-muted" style="font-size: 12px;">Auto-refresh: 30s | {now_ist_str}</span>
         </div>
     </header>
 
