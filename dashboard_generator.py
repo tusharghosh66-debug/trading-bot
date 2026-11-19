@@ -77,6 +77,18 @@ def generate_dashboard():
         nse_badge = '<span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4);">CLOSED</span>'
         nse_desc = 'Market closed (09:15 AM - 03:30 PM IST). Opens next trading session at 09:15 AM IST.'
 
+    # Dynamic US Market Session Check
+    us_session = get_market_session_info("us_equity")
+    if "LIVE OPEN" in us_session.get("status", ""):
+        us_badge = '<span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4);">LIVE OPEN (Wall Street)</span>'
+        us_desc = 'NYSE & Nasdaq Active (08:00 PM - 02:30 AM IST). Real-time US execution (Priced in INR ₹).'
+    elif "PRE-MARKET" in us_session.get("status", ""):
+        us_badge = '<span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4);">PRE-MARKET (Opens 08:00 PM)</span>'
+        us_desc = 'Pre-market active. Regular opening bell at 08:00 PM IST (Wall Street).'
+    else:
+        us_badge = '<span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4);">CLOSED</span>'
+        us_desc = 'US Market closed (Regular: 08:00 PM - 02:30 AM IST). Opens tonight at 08:00 PM IST.'
+
     # Format positions HTML
     positions_html = ""
     if positions:
@@ -518,12 +530,20 @@ def generate_dashboard():
                     <small class="text-muted">Trades 24 hours a day, 365 days a year without closing (Priced in INR ₹).</small>
                 </div>
 
-                <div style="background: #0f1520; padding: 12px; border-radius: 8px;">
+                <div style="background: #0f1520; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                         <span>🇮🇳 <strong>Indian Market (NSE / BSE)</strong></span>
                         {nse_badge}
                     </div>
                     <small class="text-muted">{nse_desc}</small>
+                </div>
+
+                <div style="background: #0f1520; padding: 12px; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span>🇺🇸 <strong>US Market (NYSE / Nasdaq)</strong></span>
+                        {us_badge}
+                    </div>
+                    <small class="text-muted">{us_desc}</small>
                 </div>
             </div>
 

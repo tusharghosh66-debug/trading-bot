@@ -16,6 +16,8 @@ from config import (
     MACRO_TIMEFRAME,
     MIN_RISK_REWARD_RATIO,
     MIN_SIGNAL_CONFIDENCE,
+    USD_INR_RATE,
+    WATCHLIST,
 )
 
 logger = logging.getLogger("AlphaTrader.CandleEngine")
@@ -43,6 +45,18 @@ class CandleEngine:
             for col in ['open', 'high', 'low', 'close', 'volume']:
                 if col in df.columns:
                     df[col] = pd.to_numeric(df[col], errors='coerce')
+
+            # If US equity, convert OHLC to INR so all indicators, prices, ATR, SL, and TP are uniformly in INR
+            is_us = False
+            for w in WATCHLIST:
+                if w["symbol"] == symbol and w.get("type") == "us_equity":
+                    is_us = True
+                    break
+
+            if is_us:
+                for col in ['open', 'high', 'low', 'close']:
+                    if col in df.columns:
+                        df[col] = df[col] * USD_INR_RATE
 
             df = df.dropna().copy()
             return df

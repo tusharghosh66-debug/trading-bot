@@ -30,7 +30,7 @@ class RiskManager:
         self.daily_loss_limit_pct = DAILY_LOSS_LIMIT_PCT
         self.min_rr = MIN_RISK_REWARD_RATIO
 
-    def calculate_position_size(self, portfolio_equity, cash_available, entry_price, stop_loss):
+    def calculate_position_size(self, portfolio_equity, cash_available, entry_price, stop_loss, symbol=""):
         """
         Calculates position size: exactly allocates ₹10,000 per position (capped by available cash).
         """
@@ -48,13 +48,16 @@ class RiskManager:
 
         raw_quantity = capital_to_invest / entry_price
 
-        # Sizing decimals: crypto allows 4-6 decimals, Indian stocks allow whole integers
-        if "BTC" in str(entry_price) or entry_price > 50000:
+        # Sizing decimals:
+        # Indian equities (.NS): integer shares only (NSE doesn't support fractional shares)
+        if str(symbol).endswith(".NS"):
+            final_quantity = int(raw_quantity)
+            if final_quantity == 0 and capital_to_invest >= (entry_price * 0.9):
+                final_quantity = 1
+        elif "crypto" in str(symbol).lower() or "-INR" in str(symbol) or "BTC" in str(symbol) or "ETH" in str(symbol):
             final_quantity = round(raw_quantity, 6)
-        elif entry_price > 1000:
+        else:  # US stocks allow fractional shares
             final_quantity = round(raw_quantity, 4)
-        else:
-            final_quantity = max(int(raw_quantity), 1)
 
         if final_quantity <= 0:
             return 0, "Position size calculated to zero"

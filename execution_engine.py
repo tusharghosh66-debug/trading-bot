@@ -18,6 +18,8 @@ from config import (
     PORTFOLIO_FILE,
     SLIPPAGE_PCT,
     TRADES_FILE,
+    USD_INR_RATE,
+    WATCHLIST,
 )
 from risk_manager import RiskManager
 
@@ -132,7 +134,8 @@ class PortfolioManager:
             self.portfolio["equity"],
             self.portfolio["cash"],
             fill_price,
-            stop_loss
+            stop_loss,
+            symbol=symbol
         )
 
         if qty <= 0:
@@ -253,6 +256,11 @@ class PortfolioManager:
                     hist = t.history(period="1d", interval="1m")
                     if not hist.empty:
                         curr_price = float(hist["Close"].iloc[-1])
+                        # If US equity, multiply by USD_INR_RATE
+                        for w in WATCHLIST:
+                            if w["symbol"] == symbol and w.get("type") == "us_equity":
+                                curr_price = curr_price * USD_INR_RATE
+                                break
                 except Exception as e:
                     logger.warning(f"Could not fetch live tick for {symbol}: {e}")
 
