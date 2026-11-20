@@ -18,6 +18,12 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
 
+    def do_HEAD(self):
+        # Respond 200 OK to HEAD requests from Uptime monitors
+        self.send_response(200)
+        self.send_header("Content-type", "application/json" if self.path == "/health" else "text/html")
+        self.end_headers()
+
     def do_GET(self):
         # Health check endpoint for cloud uptime monitors
         if self.path == "/health":
