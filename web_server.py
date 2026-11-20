@@ -19,6 +19,14 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
 
     def do_GET(self):
+        # Health check endpoint for cloud uptime monitors
+        if self.path == "/health":
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(b'{"status":"ok"}')
+            return
+
         # Serve the 3 Master Bots Suite Dashboard
         if self.path == "/suite" or self.path == "/suite_dashboard.html":
             suite_dash = os.path.join(BASE_DIR, "bots_suite", "suite_dashboard.html")
