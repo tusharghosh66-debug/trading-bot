@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-11-20T10:48:14.255071",
+  "bot_name": "Master Bot 3: Precision Intraday & Structural Trend Suite",
+  "total_capital": 30000.0,
+  "allocation_per_subbot": 10000.0,
+  "signals": [
+    {
+      "strategy": "NIFTY_PDH_PDL_RETEST",
+      "symbol": "^NSEI",
+      "action": "BUY",
+      "confidence": 78.0,
+      "current_price": 25552.3,
+      "pdh": 25514.3,
+      "pdl": 25104.8,
+      "reason": "Bullish Retest of Previous Day High (25514.30). Support confirmed.",
+      "suggested_sl": 25450.09,
+      "suggested_tp": 25756.72,
+      "market": "INDIAN_NIFTY",
+      "allocated_capital": 10000.0
+    },
+    {
+      "strategy": "CRYPTO_PEAK_SEASONALITY",
+      "symbol": "BTC-USD",
+      "action": "AVOID_BEAR",
+      "confidence": 30.0,
+      "current_price": 61481.49,
+      "reason": "Price below 200 SMA (72635). Macro filter blocks seasonality longs.",
+      "suggested_sl": 0,
+      "suggested_tp": 0,
+      "market": "CRYPTO",
+      "allocated_capital": 10000.0
+    },
+    {
+      "strategy": "MULTI_ASSET_DONCHIAN_TREND",
+      "symbol": "GC=F",
+      "action": "SELL",
+      "confidence": 88.0,
+      "current_price": 3526.7,
+      "donchian_high": 5311.6,
+      "donchian_low": 3685.5,
+      "reason": "200-Day Donchian Breakdown (3526.70 < 3685.50). Major downtrend expansion.",
+      "suggested_sl": 4118.8,
+      "suggested_tp": 1750.4,
+      "market": "MULTI_ASSET_GOLD",
+      "allocated_capital": 10000.0
+    }
+  ]
+}

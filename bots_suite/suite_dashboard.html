@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3 Master Bots Quantitative Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg-dark: #080c14;
+        --card-bg: #101726;
+        --border: #1e293b;
+        --accent-blue: #38bdf8;
+        --accent-green: #10b981;
+        --accent-red: #ef4444;
+        --accent-purple: #c084fc;
+        --accent-orange: #fb923c;
+        --text: #f8fafc;
+        --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-dark); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; padding: 24px; }
+    header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 28px; }
+    h1 { font-size: 24px; font-weight: 700; background: linear-gradient(90deg, #38bdf8, #818cf8, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px; }
+    .column { background: rgba(16, 23, 38, 0.6); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .col-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between; }
+    .col-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.4; }
+    .card { background: #0c121d; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 14px; margin-bottom: 14px; }
+    .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .mkt-tag { font-size: 10px; font-weight: 700; color: var(--accent-blue); background: rgba(56, 189, 248, 0.1); padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px; }
+    .badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
+    .badge-buy { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-sell { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.3); }
+    .badge-hold { background: rgba(148, 163, 184, 0.1); color: var(--text-muted); border: 1px solid rgba(148, 163, 184, 0.2); }
+    .price-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    .sym { font-size: 16px; font-weight: 700; color: #fff; }
+    .price { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 700; color: #e2e8f0; }
+    .strat-name { font-size: 12px; font-weight: 600; color: var(--accent-orange); margin-bottom: 8px; }
+    .reason { background: rgba(0, 0, 0, 0.3); padding: 8px 10px; border-radius: 6px; font-size: 12px; color: #cbd5e1; line-height: 1.45; margin-bottom: 10px; border-left: 2px solid var(--accent-blue); }
+    .footer-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 8px; }
+    .footer-meta strong { color: #cbd5e1; }
+</style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>⚡ QUANT MULTI-ASSET TRADING SUITE</h1>
+            <p class="subtitle">3 Master Bots · 9 Systematic Trading Strategies (Nifty 50, Bitcoin, Forex Pairs & Commodities)</p>
+        </div>
+        <div style="text-align: right; font-size: 12px; color: var(--text-muted);">
+            Last Live Scan: <strong style="color: var(--accent-green);">20 Nov 2026 | 10:48:14 AM IST</strong>
+        </div>
+    </header>
+
+    <div class="cols">
+        <!-- BOT 1 -->
+        <div class="column">
+            <div class="col-title" style="color: #60a5fa;">
+                <span>🪐 MASTER BOT 1</span>
+                <span style="font-size: 12px; background: rgba(96, 165, 250, 0.15); padding: 2px 8px; border-radius: 12px;">₹30,000</span>
+            </div>
+            <div class="col-desc"><strong>Macro Anomalies & Trend Suite</strong><br>Option 1: Nifty Turn-of-Month + BTC 100/250 SMA + Forex Z-Score Mean Reversion</div>
+            
+            <div class="card">
+                <div class="card-head">
+                    <span class="mkt-tag">INDIAN_NIFTY</span>
+                    <span class="badge badge-hold">HOLD / INACTIVE (50%)</span>
+                </div>
+                <div class="price-row">
+                    <span class="sym">^NSEI</span>
+                    <span class="price">25551.0</span>
+                </div>
+                <div class="strat-name">NIFTY_TOTM_ANOMALY</div>
+                <div class="reason">• Outside TOTM window. Next entry window around month-end (trading days 16 to 21).</div>
+                <div class="footer-meta">
+                    <span>SL: <strong>0</strong></span>
+                    <span>TP: <strong>0</strong></span>
+                    <span>Alloc: <strong>₹10,000</strong></span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-head">
+                    <span class="mkt-tag">CRYPTO</span>
+                    <span class="badge badge-hold">HOLD_LONG (75%)</span>
+                </div>
+                <div class="price-row">
+                    <span class="sym">BTC-USD</span>
+                    <span class="price">61475.22</span>
+                </div>
+                <div class="strat-name">CRYPTO_SMA_TREND</div>
+                <div class="reason">• Bullish Trend Active: 100 SMA (77704) > 250 SMA (72638). Ride the major trend.</div>
+                <div class="footer-meta">
+                    <span>SL: <strong>72637.51</strong></span>
+                    <span>TP: <strong>76844.02</strong></span>
+                    <span>Alloc: <strong>₹10,000</strong></span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-head">
+                    <span class="mkt-tag">FOREX</span>
+                    <span class="badge badge-hold">HOLD_NEUTRAL (50%)</span>
+                </div>
+                <div class="price-row">
+                    <span class="sym">EURUSD=X (vs GBPUSD=X)</span>
+                    <span class="price">1.0984</span>
+                </div>
+                <div class="strat-name">FOREX_ZSCORE_MEAN_REVERSION</div>
+                <div class="reason">• Z-Score=1.41 is within normal distribution bounds (-2.0 < Z < +2.0).</div>
+                <div class="footer-meta">
+                    <span>SL: <strong>0</strong></span>
+                    <span>TP: <strong>0</strong></span>
+                    <span>Alloc: <strong>₹10,000</strong></span>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- BOT 2 -->
+        <div class="column">
+            <div class="col-title" style="color: #c084fc;">
+                <span>⚡ MASTER BOT 2</span>
+                <span style="font-size: 12px; background: rgba(192, 132, 252, 0.15); padding: 2px 8px; border-radius: 12px;">₹30,000</span>
+            </div>
+            <div class="col-desc"><strong>Momentum & Breakout Suite</strong><br>Option 2: Nifty 4/7-Day RSI + BTC Donchian 200-EMA + London Open Breakout & Retest</div>
+            
+            <div class="card">
+                <div class="card-head">
+                    <span class="mkt-tag">INDIAN_NIFTY</span>
+                    <span class="badge badge-hold">HOLD / NEUTRAL (45%)</span>
+                </div>
+                <div class="price-row">
+                    <span class="sym">^NSEI</span>
+                    <span class="price">25551.75</span>
+                </div>
+                <div class="strat-name">NIFTY_DUAL_RSI</div>
+                <div class="reason">• RSI(4)=72.5, RSI(7)=66.0. Waiting for RSI(4) cross above 80.</div>
+                <div class="footer-meta">
+                    <span>SL: <strong>24785.2</strong></span>
+                    <span>TP: <strong>26829.34</strong></span>
+                    <span>Alloc: <strong>₹10,000</strong></span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-head">
+                    <span class="mkt-tag">CRYPTO</span>
+                    <span class="badge badge-sell">SELL / TRAIL_EXIT (85%)</span>
+                </div>
+                <div class="price-row">
+                    <span class="sym">BTC-USD</span>
+                    <span class="price">61481.49</span>
+                </div>
+                <div class="strat-name">CRYPTO_DONCHIAN_MOMENTUM</div>
+                <div class="reason">• Price broke 20-Day Donchian Low (61481 < 62017). Momentum exhausted, exit position.</div>
+                <div class="footer-meta">
+                    <span>SL: <strong>0</strong></span>
+                    <span>TP: <strong>0</strong></span>
+                    <span>Alloc: <strong>₹10,000</strong></span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-head">
+                    <span class="mkt-tag">FOREX</span>
+                    <span class="badge badge-hold">WAIT_SESSION_RETEST (45%)</span>
+                </div>
+                <div class="price-row">
+                    <span class="sym">GBPUSD=X</span>
+                    <span class="price">1.3108</span>
+                </div>
+                <div class="strat-name">FOREX_LONDON_BREAKOUT</div>
+                <div class="reason">• Asian Range [1.3082 - 1.3112]. Awaiting London retest confirmation.</div>
+                <div class="footer-meta">
+                    <span>SL: <strong>0</strong></span>
+                    <span>TP: <strong>0</strong></span>
+                    <span>Alloc: <strong>₹10,000</strong></span>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- BOT 3 -->
+        <div class="column">
+            <div class="col-title" style="color: #34d399;">
+                <span>🎯 MASTER BOT 3</span>
+                <span style="font-size: 12px; background: rgba(52, 211, 153, 0.15); padding: 2px 8px; border-radius: 12px;">₹30,000</span>
+            </div>
+            <div class="col-desc"><strong>Precision Intraday & Structural Trend</strong><br>Option 3: Nifty PDH/PDL Retest + BTC Peak Seasonality + Multi-Asset 200-Day Donchian</div>
+            
+            <div class="card">
+                <div class="card-head">
+                    <span class="mkt-tag">INDIAN_NIFTY</span>
+                    <span class="badge badge-buy">BUY (78%)</span>
+                </div>
+                <div class="price-row">
+                    <span class="sym">^NSEI</span>
+                    <span class="price">25552.3</span>
+                </div>
+                <div class="strat-name">NIFTY_PDH_PDL_RETEST</div>
+                <div class="reason">• Bullish Retest of Previous Day High (25514.30). Support confirmed.</div>
+                <div class="footer-meta">
+                    <span>SL: <strong>25450.09</strong></span>
+                    <span>TP: <strong>25756.72</strong></span>
+                    <span>Alloc: <strong>₹10,000</strong></span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-head">
+                    <span class="mkt-tag">CRYPTO</span>
+                    <span class="badge badge-hold">AVOID_BEAR (30%)</span>
+                </div>
+                <div class="price-row">
+                    <span class="sym">BTC-USD</span>
+                    <span class="price">61481.49</span>
+                </div>
+                <div class="strat-name">CRYPTO_PEAK_SEASONALITY</div>
+                <div class="reason">• Price below 200 SMA (72635). Macro filter blocks seasonality longs.</div>
+                <div class="footer-meta">
+                    <span>SL: <strong>0</strong></span>
+                    <span>TP: <strong>0</strong></span>
+                    <span>Alloc: <strong>₹10,000</strong></span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-head">
+                    <span class="mkt-tag">MULTI_ASSET_GOLD</span>
+                    <span class="badge badge-sell">SELL (88%)</span>
+                </div>
+                <div class="price-row">
+                    <span class="sym">GC=F</span>
+                    <span class="price">3526.7</span>
+                </div>
+                <div class="strat-name">MULTI_ASSET_DONCHIAN_TREND</div>
+                <div class="reason">• 200-Day Donchian Breakdown (3526.70 < 3685.50). Major downtrend expansion.</div>
+                <div class="footer-meta">
+                    <span>SL: <strong>4118.8</strong></span>
+                    <span>TP: <strong>1750.4</strong></span>
+                    <span>Alloc: <strong>₹10,000</strong></span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

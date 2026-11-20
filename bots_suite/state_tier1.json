@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-11-20T10:48:11.916923",
+  "bot_name": "Master Bot 1: Macro Anomalies & Trend Suite",
+  "total_capital": 30000.0,
+  "allocation_per_subbot": 10000.0,
+  "signals": [
+    {
+      "strategy": "NIFTY_TOTM_ANOMALY",
+      "symbol": "^NSEI",
+      "action": "HOLD / INACTIVE",
+      "confidence": 50.0,
+      "current_price": 25551.0,
+      "reason": "Outside TOTM window. Next entry window around month-end (trading days 16 to 21).",
+      "suggested_sl": 0,
+      "suggested_tp": 0,
+      "market": "INDIAN_NIFTY",
+      "allocated_capital": 10000.0
+    },
+    {
+      "strategy": "CRYPTO_SMA_TREND",
+      "symbol": "BTC-USD",
+      "action": "HOLD_LONG",
+      "confidence": 75.0,
+      "current_price": 61475.22,
+      "sma_100": 77704.28,
+      "sma_250": 72637.51,
+      "reason": "Bullish Trend Active: 100 SMA (77704) > 250 SMA (72638). Ride the major trend.",
+      "suggested_sl": 72637.51,
+      "suggested_tp": 76844.02,
+      "market": "CRYPTO",
+      "allocated_capital": 10000.0
+    },
+    {
+      "strategy": "FOREX_ZSCORE_MEAN_REVERSION",
+      "symbol": "EURUSD=X (vs GBPUSD=X)",
+      "action": "HOLD_NEUTRAL",
+      "confidence": 50.0,
+      "current_price": 1.0984,
+      "z_score": 1.41,
+      "reason": "Z-Score=1.41 is within normal distribution bounds (-2.0 < Z < +2.0).",
+      "suggested_sl": 0,
+      "suggested_tp": 0,
+      "market": "FOREX",
+      "allocated_capital": 10000.0
+    }
+  ]
+}
