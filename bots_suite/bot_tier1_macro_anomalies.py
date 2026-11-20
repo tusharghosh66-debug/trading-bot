@@ -15,15 +15,14 @@ from tabulate import tabulate
 from strategies.indian_strategies import NiftyTurnOfTheMonthStrategy
 from strategies.crypto_strategies import CryptoSmaTrendFollowingStrategy
 from strategies.forex_strategies import ForexZScoreMeanReversionStrategy
-
-STATE_FILE = os.path.join(os.path.dirname(__file__), "state_tier1.json")
+from execution import MasterBotPortfolio
 
 
 class MasterBot1_MacroAnomalies:
     def __init__(self, initial_capital=30000.0):
         self.bot_name = "Master Bot 1: Macro Anomalies & Trend Suite"
-        self.initial_capital = initial_capital
-        self.capital_per_market = initial_capital / 3.0  # ₹10,000 per market
+        self.portfolio_mgr = MasterBotPortfolio(bot_id=1, initial_capital=initial_capital)
+        self.capital_per_market = initial_capital / 3.0
 
         # Sub-Bots
         self.subbot_indian = NiftyTurnOfTheMonthStrategy(symbol="^NSEI")
@@ -73,16 +72,10 @@ class MasterBot1_MacroAnomalies:
 
         print("\n" + tabulate(rows, headers=["Market", "Strategy", "Asset", "Action", "Confidence", "Price", "Targets"], tablefmt="fancy_grid"))
 
-        # Save state
-        state_data = {
-            "timestamp": datetime.now().isoformat(),
-            "bot_name": self.bot_name,
-            "total_capital": self.initial_capital,
-            "allocation_per_subbot": self.capital_per_market,
-            "signals": signals
-        }
-        with open(STATE_FILE, "w", encoding="utf-8") as f:
-            json.dump(state_data, f, indent=2)
+        # Process automated execution
+        state_data = self.portfolio_mgr.process_signals(signals, min_confidence=65.0)
+        p = state_data["portfolio"]
+        print(f"💰 Bot 1 Equity: ₹{p['equity']:,.2f} | Cash: ₹{p['cash']:,.2f} | Open Positions: {len(p['open_positions'])}")
 
         return state_data
 
