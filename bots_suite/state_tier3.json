@@ -3,26 +3,11 @@
   "created_at": "2026-11-20T11:30:08.375409",
   "initial_capital": 30000.0,
   "portfolio": {
-    "equity": 30000.0,
-    "cash": 10000.0,
-    "realized_pnl": 0.0,
-    "unrealized_pnl": 0.0,
+    "equity": 30013.98,
+    "cash": 20101.0853,
+    "realized_pnl": 101.08529999999887,
+    "unrealized_pnl": -87.11,
     "open_positions": {
-      "^NSEI": {
-        "symbol": "^NSEI",
-        "market": "INDIAN_NIFTY",
-        "strategy": "NIFTY_PDH_PDL_RETEST",
-        "side": "BUY",
-        "quantity": 0.3915,
-        "entry_price": 25542.4,
-        "current_price": 25542.4,
-        "stop_loss": 25440.23,
-        "take_profit": 25746.74,
-        "capital_allocated": 10000.0,
-        "unrealized_pnl": 0.0,
-        "pnl_pct": 0.0,
-        "entry_time": "2026-11-20 11:30:12"
-      },
       "GC=F": {
         "symbol": "GC=F",
         "market": "MULTI_ASSET_GOLD",
@@ -30,29 +15,44 @@
         "side": "SELL",
         "quantity": 2.819,
         "entry_price": 3547.3,
-        "current_price": 3547.3,
+        "current_price": 3578.2,
         "stop_loss": 4116.28,
         "take_profit": 1840.36,
         "capital_allocated": 10000.0,
-        "unrealized_pnl": 0.0,
-        "pnl_pct": 0.0,
+        "unrealized_pnl": -87.11,
+        "pnl_pct": -0.87,
         "entry_time": "2026-11-20 11:30:12"
       }
     },
-    "closed_trades": []
+    "closed_trades": [
+      {
+        "symbol": "^NSEI",
+        "market": "INDIAN_NIFTY",
+        "strategy": "NIFTY_PDH_PDL_RETEST",
+        "side": "BUY",
+        "quantity": 0.3915,
+        "entry_price": 25542.4,
+        "exit_price": 25800.6,
+        "pnl": 101.09,
+        "pnl_pct": 1.01,
+        "exit_reason": "TAKE PROFIT HIT (25800.6 >= 25746.74)",
+        "entry_time": "2026-11-20 11:30:12",
+        "exit_time": "2026-11-20 16:02:06"
+      }
+    ]
   },
   "signals": [
     {
       "strategy": "NIFTY_PDH_PDL_RETEST",
       "symbol": "^NSEI",
-      "action": "BUY",
-      "confidence": 78.0,
-      "current_price": 25542.4,
+      "action": "HOLD / RANGE",
+      "confidence": 40.0,
+      "current_price": 25800.6,
       "pdh": 25514.3,
       "pdl": 25104.8,
-      "reason": "Bullish Retest of Previous Day High (25514.30). Support confirmed.",
-      "suggested_sl": 25440.23,
-      "suggested_tp": 25746.74,
+      "reason": "Price inside or far from PDH (25514.30) / PDL (25104.80) levels. No retest setup.",
+      "suggested_sl": 25104.8,
+      "suggested_tp": 25514.3,
       "market": "INDIAN_NIFTY",
       "allocated_capital": 10000.0
     },
@@ -61,8 +61,8 @@
       "symbol": "BTC-USD",
       "action": "AVOID_BEAR",
       "confidence": 30.0,
-      "current_price": 61845.8,
-      "reason": "Price below 200 SMA (72636). Macro filter blocks seasonality longs.",
+      "current_price": 61978.89,
+      "reason": "Price below 200 SMA (72547). Macro filter blocks seasonality longs.",
       "suggested_sl": 0,
       "suggested_tp": 0,
       "market": "CRYPTO",
@@ -73,12 +73,12 @@
       "symbol": "GC=F",
       "action": "SELL",
       "confidence": 88.0,
-      "current_price": 3547.3,
+      "current_price": 3578.2,
       "donchian_high": 5311.6,
       "donchian_low": 3685.5,
-      "reason": "200-Day Donchian Breakdown (3547.30 < 3685.50). Major downtrend expansion.",
+      "reason": "200-Day Donchian Breakdown (3578.20 < 3685.50). Major downtrend expansion.",
       "suggested_sl": 4116.28,
-      "suggested_tp": 1840.36,
+      "suggested_tp": 1963.96,
       "market": "MULTI_ASSET_GOLD",
       "allocated_capital": 10000.0
     }
