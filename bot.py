@@ -35,6 +35,15 @@ from execution_engine import PortfolioManager
 from market_intelligence import MarketIntelligenceCollector
 from web_server import start_server_daemon
 
+try:
+    import sys
+    suite_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bots_suite")
+    if suite_path not in sys.path:
+        sys.path.insert(0, suite_path)
+    from suite_runner import run_suite
+except Exception as e:
+    run_suite = None
+
 # Configure Logging
 logging.basicConfig(
     level=logging.INFO,
@@ -212,6 +221,15 @@ class AlphaTraderBot:
         self.run_market_intelligence(force=True)
         self.scan_candlesticks_and_generate_signals()
         self.execute_qualified_signals()
+
+        # Run 3 Master Bots Suite (9 Quant Strategies)
+        if run_suite:
+            try:
+                logger.info("Executing 3 Master Bots Suite (9 Quant Strategies)...")
+                run_suite("all")
+            except Exception as e:
+                logger.error(f"Error running 3 Master Bots Suite: {e}")
+
         self.print_terminal_report()
         self.last_scan_time = time.time()
 
@@ -229,6 +247,15 @@ class AlphaTraderBot:
                     self.run_market_intelligence(force=True)
                     self.scan_candlesticks_and_generate_signals()
                     self.execute_qualified_signals()
+
+                    # Periodic execution of 3 Master Bots Suite
+                    if run_suite:
+                        try:
+                            logger.info("Running periodic 3 Master Bots Suite cycle...")
+                            run_suite("all")
+                        except Exception as e:
+                            logger.error(f"Error in 3 Master Bots Suite cycle: {e}")
+
                     self.print_terminal_report()
                     self.last_scan_time = now
 

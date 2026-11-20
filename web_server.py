@@ -19,6 +19,17 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
 
     def do_GET(self):
+        # Serve the 3 Master Bots Suite Dashboard
+        if self.path == "/suite" or self.path == "/suite_dashboard.html":
+            suite_dash = os.path.join(BASE_DIR, "bots_suite", "suite_dashboard.html")
+            if os.path.exists(suite_dash):
+                self.send_response(200)
+                self.send_header("Content-type", "text/html; charset=utf-8")
+                self.end_headers()
+                with open(suite_dash, "rb") as f:
+                    self.wfile.write(f.read())
+                return
+
         # Auto-regenerate dashboard whenever user hits root URL
         if self.path == "/" or self.path == "/index.html" or self.path == "/dashboard.html":
             generate_dashboard()

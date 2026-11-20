@@ -426,6 +426,9 @@ def generate_dashboard():
             <span style="color: var(--text-muted); font-size: 12px;">Indian & Global AI Quant Bot (INR ₹)</span>
         </div>
         <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="/suite" target="_blank" style="text-decoration: none; background: rgba(56, 189, 248, 0.15); border: 1px solid #38bdf8; color: #38bdf8; font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px;">
+                🪐 3 MASTER BOTS SUITE (9 STRATEGIES) ↗
+            </a>
             <div class="status-pill">EQUAL ALLOCATION ENGINE (₹10,000 EACH)</div>
             <span class="text-muted" style="font-size: 12px;">Auto-refresh: 30s | {now_ist_str}</span>
         </div>
