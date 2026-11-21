@@ -19,9 +19,12 @@ from execution import MasterBotPortfolio
 
 
 class MasterBot2_MomentumBreakout:
-    def __init__(self, initial_capital=30000.0):
-        self.bot_name = "Master Bot 2: Momentum & Breakout Suite"
-        self.portfolio_mgr = MasterBotPortfolio(bot_id=2, initial_capital=initial_capital)
+    def __init__(self, bot_id=2, is_smart=False, initial_capital=30000.0):
+        self.bot_id = bot_id
+        self.is_smart = is_smart
+        smart_tag = " (Smart v2 - Breakeven & Trailing)" if is_smart else ""
+        self.bot_name = f"Master Bot 2: Momentum & Breakout Suite{smart_tag}"
+        self.portfolio_mgr = MasterBotPortfolio(bot_id=bot_id, initial_capital=initial_capital, is_smart=is_smart)
         self.capital_per_market = initial_capital / 3.0
 
         # Sub-Bots
@@ -29,33 +32,34 @@ class MasterBot2_MomentumBreakout:
         self.subbot_crypto = CryptoDonchianMomentumStrategy(symbol="BTC-USD")
         self.subbot_forex = ForexLondonBreakoutStrategy(symbol="GBPUSD=X")
 
-    def run_cycle(self):
+    def run_cycle(self, signals=None):
         print(f"\n{'='*75}")
         print(f"🚀 RUNNING: {self.bot_name.upper()}")
         print(f"{'='*75}")
 
-        signals = []
+        if signals is None:
+            signals = []
 
-        # 1. Evaluate Indian NIFTY Dual RSI
-        print("\n[Sub-Bot 1 - Indian NIFTY] Scanning 4-Day/7-Day RSI Momentum...")
-        res_ind = self.subbot_indian.evaluate()
-        res_ind["market"] = "INDIAN_NIFTY"
-        res_ind["allocated_capital"] = self.capital_per_market
-        signals.append(res_ind)
+            # 1. Evaluate Indian NIFTY Dual RSI
+            print("\n[Sub-Bot 1 - Indian NIFTY] Scanning 4-Day/7-Day RSI Momentum...")
+            res_ind = self.subbot_indian.evaluate()
+            res_ind["market"] = "INDIAN_NIFTY"
+            res_ind["allocated_capital"] = self.capital_per_market
+            signals.append(res_ind)
 
-        # 2. Evaluate Crypto Donchian 200EMA
-        print("[Sub-Bot 2 - Crypto] Scanning BTC Donchian & 200-EMA Breakout...")
-        res_cry = self.subbot_crypto.evaluate()
-        res_cry["market"] = "CRYPTO"
-        res_cry["allocated_capital"] = self.capital_per_market
-        signals.append(res_cry)
+            # 2. Evaluate Crypto Donchian 200EMA
+            print("[Sub-Bot 2 - Crypto] Scanning BTC Donchian & 200-EMA Breakout...")
+            res_cry = self.subbot_crypto.evaluate()
+            res_cry["market"] = "CRYPTO"
+            res_cry["allocated_capital"] = self.capital_per_market
+            signals.append(res_cry)
 
-        # 3. Evaluate Forex London Breakout
-        print("[Sub-Bot 3 - Forex] Scanning London Open Breakout & Retest...")
-        res_fx = self.subbot_forex.evaluate()
-        res_fx["market"] = "FOREX"
-        res_fx["allocated_capital"] = self.capital_per_market
-        signals.append(res_fx)
+            # 3. Evaluate Forex London Breakout
+            print("[Sub-Bot 3 - Forex] Scanning London Open Breakout & Retest...")
+            res_fx = self.subbot_forex.evaluate()
+            res_fx["market"] = "FOREX"
+            res_fx["allocated_capital"] = self.capital_per_market
+            signals.append(res_fx)
 
         # Display summary table
         rows = []
@@ -75,7 +79,7 @@ class MasterBot2_MomentumBreakout:
         # Process automated execution
         state_data = self.portfolio_mgr.process_signals(signals, min_confidence=65.0)
         p = state_data["portfolio"]
-        print(f"💰 Bot 2 Equity: ₹{p['equity']:,.2f} | Cash: ₹{p['cash']:,.2f} | Open Positions: {len(p['open_positions'])}")
+        print(f"💰 Bot {self.bot_id} Equity: ₹{p['equity']:,.2f} | Cash: ₹{p['cash']:,.2f} | Open Positions: {len(p['open_positions'])}")
 
         return state_data
 

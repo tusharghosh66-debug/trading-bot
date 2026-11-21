@@ -13,8 +13,9 @@ from strategies.common import clean_ohlcv, to_float
 
 
 class MasterBotPortfolio:
-    def __init__(self, bot_id, initial_capital=30000.0, state_file=None):
+    def __init__(self, bot_id, initial_capital=30000.0, state_file=None, is_smart=False):
         self.bot_id = bot_id
+        self.is_smart = is_smart
         self.state_file = state_file or os.path.join(os.path.dirname(__file__), f"state_tier{bot_id}.json")
         self.initial_capital = initial_capital
         self.data = self._load_state()
@@ -32,6 +33,7 @@ class MasterBotPortfolio:
         # Default portfolio state
         return {
             "bot_id": self.bot_id,
+            "is_smart": self.is_smart,
             "created_at": datetime.now().isoformat(),
             "initial_capital": self.initial_capital,
             "portfolio": {
@@ -85,6 +87,52 @@ class MasterBotPortfolio:
                     unrealized = (entry - curr_price) * qty
                 pos["unrealized_pnl"] = round(unrealized, 2)
                 pos["pnl_pct"] = round((unrealized / pos["capital_allocated"]) * 100, 2)
+
+                # Smart v2: Zero-Risk Breakeven Locker & Chandelier Trailing Stop
+                if self.is_smart:
+                    if side == "BUY":
+                        peak = max(pos.get("peak_price", entry), curr_price)
+                        pos["peak_price"] = peak
+                        init_sl = pos.get("initial_sl", sl)
+                        risk_r = (entry - init_sl) if (init_sl > 0 and entry > init_sl) else (entry * 0.015)
+
+                        # 1. Breakeven Locker at +1.0R
+                        if curr_price >= entry + 1.0 * risk_r and not pos.get("breakeven_locked"):
+                            pos["stop_loss"] = entry
+                            pos["breakeven_locked"] = True
+                            sl = entry
+                            print(f"🛡️ [{sym}] Smart v2: +1.0R reached. Stop loss moved to BREAKEVEN ({entry})!")
+
+                        # 2. Dynamic Chandelier Trailing Stop at +1.5R+ (lock 70% of peak gains)
+                        if curr_price >= entry + 1.5 * risk_r:
+                            pos["trailing_active"] = True
+                            trail = peak - (peak - entry) * 0.30
+                            if trail > pos["stop_loss"]:
+                                pos["stop_loss"] = round(trail, 2)
+                                sl = pos["stop_loss"]
+                                print(f"🔒 [{sym}] Smart v2: Trailing stop raised to {pos['stop_loss']} (70% peak gain locked)!")
+
+                    elif side == "SELL":
+                        peak = min(pos.get("peak_price", entry), curr_price)
+                        pos["peak_price"] = peak
+                        init_sl = pos.get("initial_sl", sl)
+                        risk_r = (init_sl - entry) if (init_sl > 0 and init_sl > entry) else (entry * 0.015)
+
+                        # 1. Breakeven Locker at +1.0R
+                        if curr_price <= entry - 1.0 * risk_r and not pos.get("breakeven_locked"):
+                            pos["stop_loss"] = entry
+                            pos["breakeven_locked"] = True
+                            sl = entry
+                            print(f"🛡️ [{sym}] Smart v2: +1.0R reached. Stop loss moved to BREAKEVEN ({entry})!")
+
+                        # 2. Dynamic Chandelier Trailing Stop at +1.5R+ (lock 70% of peak gains)
+                        if curr_price <= entry - 1.5 * risk_r:
+                            pos["trailing_active"] = True
+                            trail = peak + (entry - peak) * 0.30
+                            if pos["stop_loss"] == 0 or trail < pos["stop_loss"]:
+                                pos["stop_loss"] = round(trail, 2)
+                                sl = pos["stop_loss"]
+                                print(f"🔒 [{sym}] Smart v2: Trailing stop lowered to {pos['stop_loss']} (70% peak gain locked)!")
 
                 # Check SL / TP
                 closed = False
@@ -144,7 +192,7 @@ class MasterBotPortfolio:
                     if invest_cap >= 1000.0:  # Minimum allocation
                         qty = invest_cap / price
                         p["cash"] -= invest_cap
-                        p["open_positions"][sym] = {
+                        pos_record = {
                             "symbol": sym,
                             "market": sig.get("market"),
                             "strategy": sig.get("strategy"),
@@ -159,7 +207,15 @@ class MasterBotPortfolio:
                             "pnl_pct": 0.0,
                             "entry_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         }
-                        print(f"✅ EXECUTED {side} {sym} @ {price} | Capital: ₹{invest_cap:,.2f} (Conf: {conf}%)")
+                        if self.is_smart:
+                            pos_record["initial_sl"] = sig.get("suggested_sl", 0)
+                            pos_record["peak_price"] = price
+                            pos_record["breakeven_locked"] = False
+                            pos_record["trailing_active"] = False
+
+                        p["open_positions"][sym] = pos_record
+                        tag = " [Smart v2]" if self.is_smart else ""
+                        print(f"✅ EXECUTED {side} {sym} @ {price} | Capital: ₹{invest_cap:,.2f} (Conf: {conf}%){tag}")
 
         # 3. Recompute Total Equity
         tot_unrealized = sum(pos["unrealized_pnl"] for pos in p["open_positions"].values())

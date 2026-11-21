@@ -3,10 +3,10 @@
   "created_at": "2026-11-20T11:30:08.375248",
   "initial_capital": 30000.0,
   "portfolio": {
-    "equity": 29978.02,
-    "cash": 10000.0,
+    "equity": 30657.95,
+    "cash": 0.0,
     "realized_pnl": 0.0,
-    "unrealized_pnl": -21.98,
+    "unrealized_pnl": 657.95,
     "open_positions": {
       "BTC-USD": {
         "symbol": "BTC-USD",
@@ -15,12 +15,12 @@
         "side": "SELL",
         "quantity": 0.1617,
         "entry_price": 61842.94,
-        "current_price": 61978.89,
+        "current_price": 57773.98,
         "stop_loss": 0,
         "take_profit": 0,
         "capital_allocated": 10000.0,
-        "unrealized_pnl": -21.98,
-        "pnl_pct": -0.22,
+        "unrealized_pnl": 657.95,
+        "pnl_pct": 6.58,
         "entry_time": "2026-11-20 11:30:11"
       },
       "^NSEI": {
@@ -37,6 +37,21 @@
         "unrealized_pnl": 0.0,
         "pnl_pct": 0.0,
         "entry_time": "2026-11-20 16:02:05"
+      },
+      "GBPUSD=X": {
+        "symbol": "GBPUSD=X",
+        "market": "FOREX",
+        "strategy": "FOREX_LONDON_BREAKOUT",
+        "side": "SELL",
+        "quantity": 7644.0911,
+        "entry_price": 1.3082,
+        "current_price": 1.3082,
+        "stop_loss": 1.3128,
+        "take_profit": 1.299,
+        "capital_allocated": 10000.0,
+        "unrealized_pnl": 0.0,
+        "pnl_pct": 0.0,
+        "entry_time": "2026-11-21 16:15:13"
       }
     },
     "closed_trades": []
@@ -61,12 +76,12 @@
       "symbol": "BTC-USD",
       "action": "HOLD / CONSOLIDATION",
       "confidence": 50.0,
-      "current_price": 61978.89,
-      "ema_200": 74887.58,
+      "current_price": 57773.98,
+      "ema_200": 74646.31,
       "donchian_high": 81079.79,
-      "donchian_low": 61380.88,
-      "reason": "Price between Donchian High (81080) and Low (61381). Awaiting next range breakout.",
-      "suggested_sl": 56908.29,
+      "donchian_low": 57708.7,
+      "reason": "Price between Donchian High (81080) and Low (57709). Awaiting next range breakout.",
+      "suggested_sl": 51772.41,
       "suggested_tp": 81079.79,
       "market": "CRYPTO",
       "allocated_capital": 10000.0
@@ -74,14 +89,14 @@
     {
       "strategy": "FOREX_LONDON_BREAKOUT",
       "symbol": "GBPUSD=X",
-      "action": "WAIT_SESSION_RETEST",
-      "confidence": 45.0,
-      "current_price": 1.3107,
-      "asian_high": 1.3117,
-      "asian_low": 1.3081,
-      "reason": "Asian Range [1.3081 - 1.3117]. Awaiting London retest confirmation.",
-      "suggested_sl": 0,
-      "suggested_tp": 0,
+      "action": "SELL",
+      "confidence": 80.0,
+      "current_price": 1.3082,
+      "asian_high": 1.3128,
+      "asian_low": 1.3095,
+      "reason": "London Session: Bearish Breakdown & Retest of Asian Low (1.3095). Fakeout filter cleared.",
+      "suggested_sl": 1.3128,
+      "suggested_tp": 1.299,
       "market": "FOREX",
       "allocated_capital": 10000.0
     }

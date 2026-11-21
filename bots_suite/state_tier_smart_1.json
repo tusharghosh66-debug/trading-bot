@@ -1,0 +1,55 @@
+{
+  "bot_id": "_smart_1",
+  "is_smart": true,
+  "created_at": "2026-11-21T16:15:08.341540",
+  "initial_capital": 30000.0,
+  "portfolio": {
+    "equity": 30000.0,
+    "cash": 30000.0,
+    "realized_pnl": 0.0,
+    "unrealized_pnl": 0,
+    "open_positions": {},
+    "closed_trades": []
+  },
+  "signals": [
+    {
+      "strategy": "NIFTY_TOTM_ANOMALY",
+      "symbol": "^NSEI",
+      "action": "HOLD / INACTIVE",
+      "confidence": 50.0,
+      "current_price": 25800.6,
+      "reason": "Outside TOTM window. Next entry window around month-end (trading days 16 to 21).",
+      "suggested_sl": 0,
+      "suggested_tp": 0,
+      "market": "INDIAN_NIFTY",
+      "allocated_capital": 10000.0
+    },
+    {
+      "strategy": "CRYPTO_SMA_TREND",
+      "symbol": "BTC-USD",
+      "action": "HOLD_LONG",
+      "confidence": 75.0,
+      "current_price": 57773.98,
+      "sma_100": 77606.23,
+      "sma_250": 72514.9,
+      "reason": "Bullish Trend Active: 100 SMA (77606) > 250 SMA (72515). Ride the major trend.",
+      "suggested_sl": 72514.9,
+      "suggested_tp": 72217.48,
+      "market": "CRYPTO",
+      "allocated_capital": 10000.0
+    },
+    {
+      "strategy": "FOREX_ZSCORE_MEAN_REVERSION",
+      "symbol": "EURUSD=X (vs GBPUSD=X)",
+      "action": "HOLD_NEUTRAL",
+      "confidence": 50.0,
+      "current_price": 1.0975,
+      "z_score": 1.48,
+      "reason": "Z-Score=1.48 is within normal distribution bounds (-2.0 < Z < +2.0).",
+      "suggested_sl": 0,
+      "suggested_tp": 0,
+      "market": "FOREX",
+      "allocated_capital": 10000.0
+    }
+  ]
+}
